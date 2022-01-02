@@ -16,29 +16,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TGk-PR-kyM">
-                                <rect key="frame" x="0.0" y="245" width="414" height="617"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qMn-hM-B92">
+                                <rect key="frame" x="20" y="52" width="374" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="comment" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-pa-FeJ">
+                                <rect key="frame" x="20" y="90" width="374" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZd-0L-H2e">
+                                <rect key="frame" x="135" y="818" width="145" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bPG-Z4-ruR"/>
+                                </connections>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TGk-PR-kyM">
+                                <rect key="frame" x="0.0" y="132" width="414" height="678"/>
                             </mapView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qMn-hM-B92">
-                                <rect key="frame" x="64" y="76" width="292" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="comment" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lhd-pa-FeJ">
-                                <rect key="frame" x="64" y="129" width="292" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="TGk-PR-kyM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8VJ-Fc-WGo"/>
-                            <constraint firstItem="TGk-PR-kyM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8bY-dE-jR7"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TGk-PR-kyM" secondAttribute="trailing" id="ckN-2z-EdA"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TGk-PR-kyM" secondAttribute="bottom" id="xTc-hV-btC"/>
+                            <constraint firstItem="qMn-hM-B92" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="6go-kP-s4o"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jZd-0L-H2e" secondAttribute="trailing" constant="134" id="6hC-DU-zbB"/>
+                            <constraint firstItem="qMn-hM-B92" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Eav-en-7Ik"/>
+                            <constraint firstItem="TGk-PR-kyM" firstAttribute="top" secondItem="Lhd-pa-FeJ" secondAttribute="bottom" constant="8" id="Hfp-iR-5A9"/>
+                            <constraint firstItem="Lhd-pa-FeJ" firstAttribute="top" secondItem="qMn-hM-B92" secondAttribute="bottom" constant="4" id="bBq-je-1FF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jZd-0L-H2e" secondAttribute="bottom" constant="14" id="buw-nw-L7w"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qMn-hM-B92" secondAttribute="trailing" constant="20" id="dJG-xU-ayV"/>
+                            <constraint firstItem="Lhd-pa-FeJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fjG-Zh-f3N"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Lhd-pa-FeJ" secondAttribute="trailing" constant="20" id="lLu-JX-xcy"/>
+                            <constraint firstItem="TGk-PR-kyM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rUT-8J-y7M"/>
+                            <constraint firstItem="TGk-PR-kyM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="t8X-1a-QHx"/>
+                            <constraint firstItem="jZd-0L-H2e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="135" id="vBz-29-6tU"/>
+                            <constraint firstItem="jZd-0L-H2e" firstAttribute="top" secondItem="TGk-PR-kyM" secondAttribute="bottom" constant="8" id="z7A-hy-Uwj"/>
                         </constraints>
                     </view>
                     <connections>

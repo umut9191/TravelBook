@@ -35,6 +35,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
+    @IBAction func saveButtonPressed(_ sender: UIButton) {
+        //core data save codes will be here
+    }
     @objc func pinLocation(gestureRecognizer:UILongPressGestureRecognizer){
         
         if gestureRecognizer.state == .began {
