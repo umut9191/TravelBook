@@ -14,13 +14,37 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBOutlet weak var txtComment: UITextField!
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    var chosenPlace:PlacesModel?
     var chosenlatitude=Double()
     var chosenLongtitude=Double()
     //this is from CoreLocation lib
     var locationManeger = CLLocationManager()
+//    var annotationLatitude=Double()
+//    var annotationLongtitude=Double()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        if let data = chosenPlace {
+            txtName.text = data.title
+            txtComment.text = data.subtitle
+            //create new annotation for map;
+            let annotation = MKPointAnnotation()
+            annotation.title = data.title
+            annotation.subtitle = data.subtitle
+            let coordinate = CLLocationCoordinate2D(latitude: data.latitude, longitude: data.longtitude)
+            annotation.coordinate = coordinate
+            mapView.addAnnotation(annotation)
+            //for stoping updatin location changed
+            locationManeger.stopUpdatingLocation()
+            var span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            let region = MKCoordinateRegion(center: coordinate, span: span)
+            mapView.setRegion(region, animated: true)
+//            annotationLatitude = data.latitude
+//            annotationLongtitude = data.longtitude
+            
+        
+        }
         mapView.delegate = self
         locationManeger.delegate = self
         //this is for accurancy for location if you chose best then phone batery will faster running out.
@@ -82,14 +106,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     //delegate method;
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //every pdating location of phone this method get datas in locations array
-        
-        let location = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
-        //we took location now we will zoom on it
-        //parameter how small zoom that much raise
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        
-        let region = MKCoordinateRegion(center: location, span: span)
-        mapView.setRegion(region, animated: true)
+        if chosenPlace == nil {
+            let location = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
+            //we took location now we will zoom on it
+            //parameter how small zoom that much raise
+            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            
+            let region = MKCoordinateRegion(center: location, span: span)
+            mapView.setRegion(region, animated: true)
+        }
+       
     }
 
 

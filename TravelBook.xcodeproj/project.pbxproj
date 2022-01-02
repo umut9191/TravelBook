@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0422BE6D2781F51500171120 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BE6C2781F51500171120 /* TableViewController.swift */; };
+		0422BE70278200A500171120 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422BE6F278200A500171120 /* PlacesModel.swift */; };
 		04E3920A2780936B00CBB925 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E392092780936B00CBB925 /* AppDelegate.swift */; };
 		04E3920C2780936B00CBB925 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E3920B2780936B00CBB925 /* SceneDelegate.swift */; };
 		04E3920E2780936B00CBB925 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E3920D2780936B00CBB925 /* ViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0422BE6C2781F51500171120 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		0422BE6F278200A500171120 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 		04E392062780936B00CBB925 /* TravelBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E392092780936B00CBB925 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04E3920B2780936B00CBB925 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 				04E392172780936C00CBB925 /* LaunchScreen.storyboard */,
 				04E3921A2780936C00CBB925 /* Info.plist */,
 				04E392122780936B00CBB925 /* TravelBook.xcdatamodeld */,
+				0422BE6C2781F51500171120 /* TableViewController.swift */,
+				0422BE6F278200A500171120 /* PlacesModel.swift */,
 			);
 			path = TravelBook;
 			sourceTree = "<group>";
@@ -143,7 +149,9 @@
 				04E392142780936B00CBB925 /* TravelBook.xcdatamodeld in Sources */,
 				04E3920E2780936B00CBB925 /* ViewController.swift in Sources */,
 				04E3920A2780936B00CBB925 /* AppDelegate.swift in Sources */,
+				0422BE6D2781F51500171120 /* TableViewController.swift in Sources */,
 				04E3920C2780936B00CBB925 /* SceneDelegate.swift in Sources */,
+				0422BE70278200A500171120 /* PlacesModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
