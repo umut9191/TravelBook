@@ -9,10 +9,13 @@ import UIKit
 import MapKit
 //this lib for reaching out user location
 import CoreLocation
+import CoreData
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate{
     @IBOutlet weak var txtComment: UITextField!
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    var chosenlatitude=Double()
+    var chosenLongtitude=Double()
     //this is from CoreLocation lib
     var locationManeger = CLLocationManager()
     override func viewDidLoad() {
@@ -37,6 +40,25 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         //core data save codes will be here
+        var appDelegate = UIApplication.shared.delegate as! AppDelegate
+        var context = appDelegate.persistentContainer.viewContext
+        let newPlace = NSEntityDescription.insertNewObject(forEntityName: "Places", into: context)
+        newPlace.setValue(txtName.text, forKey: "title")
+        newPlace.setValue(txtComment.text, forKey: "subtitle")
+        newPlace.setValue(chosenlatitude, forKey: "latitude")
+        newPlace.setValue(chosenLongtitude, forKey: "longtitude")
+        newPlace.setValue(UUID(), forKey: "id")
+        
+        do {
+            try context.save()
+            print("successfully data inserted")
+        } catch  {
+            print("error when saving place \(error)")
+        }
+        
+        
+        
+        
     }
     @objc func pinLocation(gestureRecognizer:UILongPressGestureRecognizer){
         
@@ -45,6 +67,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             let touchPoint = gestureRecognizer.location(in: self.mapView)
             //convert touch point to location points coordinates;
             let touchedCoordinates = self.mapView.convert(touchPoint, toCoordinateFrom: self.mapView)
+            chosenlatitude = touchedCoordinates.latitude
+            chosenLongtitude = touchedCoordinates.longitude
             //creating pin
             let annotation = MKPointAnnotation()
             annotation.coordinate = touchedCoordinates
