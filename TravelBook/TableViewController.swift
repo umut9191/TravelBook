@@ -20,6 +20,11 @@ class TableViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         myTableView.dataSource = self
         getData()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        //we use this method because viewDidload work just firs loading
+        //beside this method runs every loading this controller
+        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("newPlace"), object: nil)
+    }
     @objc func addButtonClicked() {
         //to add new place
         performSegue(withIdentifier: "toMapView", sender: nil)

@@ -25,26 +25,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        if let data = chosenPlace {
-            txtName.text = data.title
-            txtComment.text = data.subtitle
-            //create new annotation for map;
-            let annotation = MKPointAnnotation()
-            annotation.title = data.title
-            annotation.subtitle = data.subtitle
-            let coordinate = CLLocationCoordinate2D(latitude: data.latitude, longitude: data.longtitude)
-            annotation.coordinate = coordinate
-            mapView.addAnnotation(annotation)
-            //for stoping updatin location changed
-            locationManeger.stopUpdatingLocation()
-            var span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            let region = MKCoordinateRegion(center: coordinate, span: span)
-            mapView.setRegion(region, animated: true)
-//            annotationLatitude = data.latitude
-//            annotationLongtitude = data.longtitude
-            
-        
-        }
+
         mapView.delegate = self
         locationManeger.delegate = self
         //this is for accurancy for location if you chose best then phone batery will faster running out.
@@ -59,13 +40,36 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         gestureRecognizer.minimumPressDuration = 3
         mapView.addGestureRecognizer(gestureRecognizer)
         
+        if let data = chosenPlace {
+            //viewFor didnt work so this line added from internet;
+          //  mapView.showAnnotations(mapView.annotations, animated: true)
+            txtName.text = data.title
+            txtComment.text = data.subtitle
+            //create new annotation for map;
+            let annotation = MKPointAnnotation()
+            annotation.title = data.title
+            annotation.subtitle = data.subtitle
+            let coordinate = CLLocationCoordinate2D(latitude: data.latitude, longitude: data.longtitude)
+            annotation.coordinate = coordinate
+            mapView.addAnnotation(annotation)
+            //for stoping updatin location changed
+            locationManeger.stopUpdatingLocation()
+            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            let region = MKCoordinateRegion(center: coordinate, span: span)
+            mapView.setRegion(region, animated: true)
+//            annotationLatitude = data.latitude
+//            annotationLongtitude = data.longtitude
+            
+        
+        }
         
     }
+
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         //core data save codes will be here
-        var appDelegate = UIApplication.shared.delegate as! AppDelegate
-        var context = appDelegate.persistentContainer.viewContext
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
         let newPlace = NSEntityDescription.insertNewObject(forEntityName: "Places", into: context)
         newPlace.setValue(txtName.text, forKey: "title")
         newPlace.setValue(txtComment.text, forKey: "subtitle")
@@ -80,7 +84,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             print("error when saving place \(error)")
         }
         
-        
+        //if new record saved than use a nottification center for telling another views to refresh tableView records;
+       
+        NotificationCenter.default.post(name: NSNotification.Name("newPlace"), object: nil)
+        //for going back to first navigation controller page
+        navigationController?.popViewController(animated: true)
         
         
     }
@@ -117,7 +125,46 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
        
     }
-
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // if we dont write this function map otomaticaly adds one if we write this than we will give anotation
+        // this if for user location not to show with pin;
+        if annotation is MKUserLocation {
+            return nil
+        }
+        let reuseId = "myanotation"
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+           pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView?.canShowCallout = true // this can be added buttons inside
+            pinView?.tintColor = UIColor.black//annotation colors
+            let button = UIButton(type: UIButton.ButtonType.detailDisclosure)
+            pinView?.rightCalloutAccessoryView = button
+            
+        }
+        else {
+            pinView?.annotation = annotation
+        }
+        return pinView
+    }
+    // after taping inside pin axplanation sign this func runs
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let data = chosenPlace {
+            var requestLocation = CLLocation(latitude: data.latitude, longitude: data.longtitude)
+            CLGeocoder().reverseGeocodeLocation(requestLocation) { (placeMarks, error) in
+                if let placeMark = placeMarks {
+                    if placeMark.count > 0 {
+                        let newPlaceMark = MKPlacemark(placemark: placeMark[0])
+                        let item = MKMapItem(placemark: newPlaceMark)
+                        item.name = data.title
+                        let launchOptions = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving]
+                        item.openInMaps(launchOptions: launchOptions)
+                    }
+                }
+                
+            }
+        }
+    }
 
 }
 
